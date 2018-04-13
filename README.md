@@ -1,2 +1,21 @@
 # palone-webshell
-Selfmade PHP webshell. Nothing special but I dont trust piblic ones.
+Selfmade PHP webshell. Nothing special but I dont trust public ones.
+
+# Why another webshell?
+
+I wanted to play around with some vulnerabvle software on my server and all the webshells I found on github seemed fishy, bad or bloated as fuck, at least in my opinion. And when I dont find software that suits my taste I just make it my own. 
+
+# Is this special?
+
+You can use many ways to execute server commands instead of just one, didnt see that featue alot. Otherwise its nothubg special at all. I
+It uses either:
+
+- passthru 
+- system 
+- shell_exec 
+- popen (live output!)
+- exec 
+
+If a server has blacklisted one but not the other, you can try multiple. 
+
+# Thats it. Use ethical!
