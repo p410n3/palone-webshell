@@ -1,5 +1,5 @@
 # palone-webshell
-Selfmade PHP webshell. Nothing special but I dont trust public ones.
+Selfmade PHP webshell. Nothing special but I just didnt like public ones I found.
 
 # Why another webshell?
 
