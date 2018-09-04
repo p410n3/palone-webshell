@@ -16,7 +16,7 @@ It uses either:
 - popen (live output!)
 - exec 
 
-Theres is also a shell_exec with a possible safe_mode bypass as mentioned [here](https://tools.cisco.com/security/center/viewAlert.x?alertId=11688)
+There is also a shell_exec with a possible safe_mode bypass as mentioned [here](https://tools.cisco.com/security/center/viewAlert.x?alertId=11688)
 
 If a server has blacklisted one but not the other, you can try multiple. 
 
