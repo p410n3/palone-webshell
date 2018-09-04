@@ -1,7 +1,7 @@
 # palone-webshell
 Selfmade PHP webshell. Nothing special but I just didnt like public ones I found.
 
-![Screenhot](https://i.imgur.com/HAB40w8.png)
+![Screenhot](https://i.imgur.com/cbq5r7r.png)
 > Its pretty
 
 # Why another webshell?
